@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import TechMarquee from "@/components/TechMarquee";
 import Section from "@/components/Section";
 import WhatIDo from "@/components/WhatIDo";
 import Projects from "@/components/Projects";
@@ -16,12 +17,13 @@ export default function Home() {
       <Nav />
       <main className="mx-auto max-w-6xl px-6">
         <Hero />
+        <TechMarquee />
 
         <Section
           id="work"
           index="01"
           title="What I Do"
-          subtitle="I build enterprise web systems that connect real business operations with reliable software."
+          subtitle="Enterprise web systems that connect real business operations with reliable software."
         >
           <WhatIDo />
         </Section>
@@ -30,10 +32,10 @@ export default function Home() {
           id="projects"
           index="02"
           title="Selected Projects"
-          subtitle="Seven engineering themes from owning a multi-client ERP platform — expand any card for the problem, technical challenge, and impact."
+          subtitle="Seven engineering themes from owning a multi-client ERP platform. Tap any card for the full case study."
         >
           <Projects />
-          <p className="mt-8 rounded-xl border border-line bg-ink-2 p-4 text-xs leading-relaxed text-faint">
+          <p className="mt-8 text-center text-xs leading-relaxed text-faint">
             {confidentialityNote}
           </p>
         </Section>
@@ -42,17 +44,11 @@ export default function Home() {
           id="achievements"
           index="03"
           title="Selected Achievements"
-          subtitle="Ownership and outcomes across architecture, delivery, and production."
         >
           <Achievements />
         </Section>
 
-        <Section
-          id="experience"
-          index="04"
-          title="Experience"
-          subtitle="From full-stack intern to hands-on technical lead."
-        >
+        <Section id="experience" index="04" title="Experience">
           <Experience />
         </Section>
 
@@ -60,7 +56,6 @@ export default function Home() {
           id="skills"
           index="05"
           title="Technical Stack"
-          subtitle="The tools I use to ship and maintain production systems."
         >
           <Skills />
         </Section>

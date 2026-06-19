@@ -9,13 +9,13 @@ export const profile = {
   location: "Edmonton, Alberta",
   tagline:
     "I build production ERP systems, internal tools, and real-time business workflows.",
+  hook: "Hands-on technical lead who owns enterprise software end to end — from messy requirements to production.",
   intro:
     "Hands-on technical lead who takes ambiguous business requirements, designs the system, builds the product, leads a small engineering team, deploys to production, debugs real client environments, and keeps the platform maintainable over time.",
   links: {
-    // TODO: replace with your public profiles before launch
-    email: "mailto:jayden.z@frontech.ca",
-    github: "https://github.com/your-github",
-    linkedin: "https://www.linkedin.com/in/your-linkedin",
+    email: "mailto:zhaojinglong12@gmail.com",
+    github: "https://github.com/Dragonn1115",
+    linkedin: "https://www.linkedin.com/in/jinglong-zhao-266528228/",
     resume: "/resume.pdf",
   },
   stats: [
@@ -292,17 +292,14 @@ export const projects: Project[] = [
 ];
 
 export const achievements = [
-  "Acted as primary technical owner for a multimillion-dollar enterprise software platform.",
+  "Primary technical owner for a multimillion-dollar enterprise software platform.",
   "Led a rotating engineering team of up to 6 active developers.",
   "Contributed to hiring and interviewing more than 10 engineers.",
-  "Designed architecture and technical standards for Frappe/ERPNext enterprise applications.",
-  "Built a configurable multi-DocType report builder for ERP workflows.",
-  "Built map-based operational tools with real-time updates and editor workflows.",
-  "Developed assembly, warehouse, inventory, and production workflow automation.",
-  "Integrated QuickBooks using OAuth2 and secure data synchronization logic.",
+  "Designed architecture and technical standards for Frappe/ERPNext applications.",
+  "Built a configurable multi-DocType report builder and real-time map tools.",
+  "Integrated QuickBooks via OAuth2 with secure data synchronization.",
   "Improved deployment reliability across dev/test/stage/live environments.",
-  "Extended Frappe framework behavior through system-level customizations.",
-  "Owned production debugging, performance, security hardening, and reliability fixes.",
+  "Owned production debugging, performance, security hardening, and reliability.",
 ];
 
 export const experience = [
@@ -312,11 +309,9 @@ export const experience = [
     time: "Sep 2023 — Present",
     place: "Edmonton, Alberta",
     bullets: [
-      "Primary technical owner for web-based internal tools, ERP customizations, enterprise workflow systems, reporting modules, deployment automation, and production support across multiple client environments.",
-      "Led architecture and technical direction for Frappe/ERPNext-based business systems.",
-      "Owned sprint planning, technical scoping, release validation, and production delivery.",
-      "Led a rotating engineering team of up to 6 developers; supported hiring 10+ engineers.",
-      "Worked directly with stakeholders to turn unclear requirements into executable plans.",
+      "Primary technical owner for ERP customizations, workflow systems, reporting, deployment automation, and production support across multiple client environments.",
+      "Led architecture, sprint planning, release validation, and production delivery.",
+      "Led a rotating team of up to 6 developers; supported hiring 10+ engineers.",
     ],
     current: true,
   },

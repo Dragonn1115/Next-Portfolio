@@ -6,36 +6,60 @@ import { profile } from "@/lib/content";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const orbs = [
+  { className: "left-[8%] top-[22%] h-3 w-3 bg-violet", dur: 7, dist: 22 },
+  { className: "right-[14%] top-[30%] h-2 w-2 bg-cyan", dur: 9, dist: -28 },
+  { className: "right-[26%] bottom-[24%] h-2.5 w-2.5 bg-magenta", dur: 8, dist: 18 },
+  { className: "left-[20%] bottom-[30%] h-1.5 w-1.5 bg-cyan", dur: 11, dist: -16 },
+];
+
 export default function Hero() {
   return (
-    <section id="top" className="relative pt-36 pb-10 sm:pt-44">
-      <motion.p
+    <section id="top" className="relative pt-36 pb-12 sm:pt-44">
+      {/* floating orbs */}
+      {orbs.map((o, i) => (
+        <motion.span
+          key={i}
+          aria-hidden
+          className={`orb ${o.className}`}
+          animate={{ y: [0, o.dist, 0] }}
+          transition={{ duration: o.dur, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+
+      <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease }}
-        className="mono-label flex items-center gap-3"
+        className="inline-flex items-center gap-2 rounded-full border border-accent-line bg-accent-soft px-3.5 py-1.5"
       >
-        <span className="inline-block h-px w-8 bg-accent-line" />
-        {profile.role}
-      </motion.p>
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-violet" />
+        </span>
+        <span className="font-mono text-xs text-accent">
+          {profile.role} · {profile.location}
+        </span>
+      </motion.div>
 
       <motion.h1
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.05, ease }}
-        className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl"
+        className="mt-7 max-w-4xl text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl"
       >
-        I turn ambiguous business requirements into{" "}
-        <span className="text-gradient">reliable enterprise software</span>.
+        Enterprise software,
+        <br />
+        <span className="text-gradient">owned end to end.</span>
       </motion.h1>
 
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.12, ease }}
-        className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
+        className="mt-6 max-w-xl text-lg leading-relaxed text-muted"
       >
-        {profile.intro}
+        {profile.hook}
       </motion.p>
 
       <motion.div
@@ -46,7 +70,7 @@ export default function Hero() {
       >
         <a
           href="#projects"
-          className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-ink transition-opacity hover:opacity-90"
+          className="btn-glow inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold"
         >
           View Projects <ArrowDown size={16} />
         </a>
@@ -81,16 +105,20 @@ export default function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3, ease }}
-        className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4"
+        className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4"
       >
         {profile.stats.map((s) => (
-          <div key={s.label} className="bg-ink-2 p-5">
-            <dt className="font-mono text-3xl font-semibold text-accent">
+          <motion.div
+            key={s.label}
+            whileHover={{ y: -4 }}
+            className="gcard p-5"
+          >
+            <dt className="font-mono text-4xl font-bold text-gradient">
               {s.value}
             </dt>
-            <dd className="mt-1 text-sm font-medium text-fg">{s.label}</dd>
+            <dd className="mt-1 text-sm font-semibold text-fg">{s.label}</dd>
             <dd className="mt-0.5 text-xs text-faint">{s.note}</dd>
-          </div>
+          </motion.div>
         ))}
       </motion.dl>
     </section>

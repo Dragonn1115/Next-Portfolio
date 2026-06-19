@@ -43,8 +43,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
       <body className="min-h-screen antialiased">
-        <div className="bg-grid" aria-hidden />
-        <div className="noise" aria-hidden />
+        <div className="aurora" aria-hidden />
+        <div className="grid-overlay" aria-hidden />
         {children}
       </body>
     </html>

@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------------------
-   Design tokens — "engineering blueprint" theme
-   Deep ink surfaces, hairline grid, a single confident amber signal accent.
+   Design tokens — "web3 console" theme
+   Deep violet-black surfaces, neon violet/cyan/magenta gradients, glow + motion.
 ---------------------------------------------------------------------------- */
 @theme {
-  --color-ink: #08090b;
-  --color-ink-2: #0c0e12;
-  --color-surface: #111419;
-  --color-surface-2: #161a20;
-  --color-line: rgba(255, 255, 255, 0.09);
+  --color-ink: #06060d;
+  --color-ink-2: #0a0a15;
+  --color-surface: #0e0d1c;
+  --color-surface-2: #14122a;
+  --color-line: rgba(255, 255, 255, 0.08);
   --color-line-strong: rgba(255, 255, 255, 0.16);
 
-  --color-fg: #ecedf0;
-  --color-muted: #9aa1ac;
-  --color-faint: #6b727d;
+  --color-fg: #f2f1f9;
+  --color-muted: #a09cc0;
+  --color-faint: #6a6790;
 
-  --color-accent: #e9b04b;
-  --color-accent-soft: rgba(233, 176, 75, 0.14);
-  --color-accent-line: rgba(233, 176, 75, 0.4);
+  --color-violet: #8b5cf6;
+  --color-cyan: #22d3ee;
+  --color-magenta: #ec4899;
+  --color-accent: #a78bfa;
+  --color-accent-soft: rgba(139, 92, 246, 0.16);
+  --color-accent-line: rgba(139, 92, 246, 0.45);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-jb), ui-monospace, "SF Mono", Menlo, monospace;
 
-  --radius-card: 16px;
+  --radius-card: 18px;
 }
 
 :root {
@@ -45,90 +48,131 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #08090b;
+  background: var(--color-violet);
+  color: #fff;
 }
 
-/* Blueprint grid + radial wash, fixed behind everything */
-.bg-grid {
+/* ------------------------------------------------------------------ */
+/* Animated aurora background                                          */
+/* ------------------------------------------------------------------ */
+.aurora {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
-  background-color: var(--color-ink);
-  background-image:
-    radial-gradient(900px circle at 15% -5%, rgba(233, 176, 75, 0.08), transparent 55%),
-    radial-gradient(800px circle at 90% 8%, rgba(80, 120, 200, 0.07), transparent 50%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px;
-  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+  background: var(--color-ink);
+  overflow: hidden;
 }
-
-.noise::before {
+.aurora::before,
+.aurora::after {
   content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.5;
+  will-change: transform;
+}
+.aurora::before {
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.55), transparent 65%);
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+.aurora::after {
+  top: 0%;
+  right: -15%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.4), transparent 65%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+@keyframes drift1 {
+  to { transform: translate3d(12vw, 16vh, 0) scale(1.15); }
+}
+@keyframes drift2 {
+  to { transform: translate3d(-14vw, 10vh, 0) scale(1.2); }
+}
+
+/* faint grid overlay + fade */
+.grid-overlay {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 80%);
 }
 
-/* Surfaces */
-.card {
-  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-ink-2) 100%);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-card);
-}
-
-.card-hover {
-  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
-}
-.card-hover:hover {
-  border-color: var(--color-line-strong);
-  background: linear-gradient(180deg, var(--color-surface-2) 0%, var(--color-ink-2) 100%);
-}
-
+/* ------------------------------------------------------------------ */
+/* Surfaces & gradient borders                                         */
+/* ------------------------------------------------------------------ */
 .glass {
-  background: rgba(14, 16, 20, 0.6);
+  background: rgba(12, 11, 26, 0.65);
   border: 1px solid var(--color-line);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
 }
 
-/* Mono label / kicker */
+/* gradient-bordered card: glowing edge that intensifies on hover */
+.gcard {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, rgba(20, 18, 42, 0.7), rgba(10, 10, 21, 0.7));
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-violet), var(--color-cyan) 50%, var(--color-magenta));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.28;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.gcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px -20px rgba(139, 92, 246, 0.45);
+}
+.gcard:hover::before {
+  opacity: 0.9;
+}
+
+/* ------------------------------------------------------------------ */
+/* Text + accents                                                      */
+/* ------------------------------------------------------------------ */
 .mono-label {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-faint);
 }
 
-/* Animated gradient text for the accent words */
 .text-gradient {
-  background: linear-gradient(100deg, #ecedf0 10%, #e9b04b 55%, #ecedf0 95%);
-  background-size: 200% auto;
+  background: linear-gradient(100deg, var(--color-violet), var(--color-cyan) 45%, var(--color-magenta) 80%, var(--color-violet));
+  background-size: 250% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer 8s linear infinite;
+  animation: shimmer 6s linear infinite;
 }
 @keyframes shimmer {
-  to {
-    background-position: 200% center;
-  }
+  to { background-position: 250% center; }
 }
 
-/* Subtle top hairline glow used on the nav */
-.hairline-glow {
-  box-shadow: 0 1px 0 0 var(--color-line);
-}
-
-/* Tag / badge */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -136,14 +180,58 @@ body {
   background: rgba(255, 255, 255, 0.03);
   color: var(--color-muted);
   border-radius: 999px;
-  padding: 0.2rem 0.65rem;
+  padding: 0.22rem 0.7rem;
   font-size: 0.72rem;
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
+  transition: border-color 0.25s, color 0.25s;
 }
-
 .badge-accent {
   border-color: var(--color-accent-line);
   background: var(--color-accent-soft);
   color: var(--color-accent);
+}
+
+/* glowing primary button */
+.btn-glow {
+  position: relative;
+  background: linear-gradient(120deg, var(--color-violet), var(--color-magenta));
+  color: #fff;
+  box-shadow: 0 8px 30px -8px rgba(139, 92, 246, 0.7);
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+.btn-glow:hover {
+  box-shadow: 0 12px 40px -6px rgba(236, 72, 153, 0.7);
+  transform: translateY(-1px);
+}
+
+/* floating accent orbs (hero) */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.7;
+  will-change: transform;
+}
+
+/* marquee */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before,
+  .aurora::after,
+  .text-gradient,
+  .marquee-track {
+    animation: none !important;
+  }
 }

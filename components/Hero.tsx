@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, FileText, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, FileText, Github, Linkedin, Mail, MessageSquare } from "lucide-react";
 import { profile } from "@/lib/content";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -16,7 +16,6 @@ const orbs = [
 export default function Hero() {
   return (
     <section id="top" className="relative pt-36 pb-12 sm:pt-44">
-      {/* floating orbs */}
       {orbs.map((o, i) => (
         <motion.span
           key={i}
@@ -46,26 +45,34 @@ export default function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.05, ease }}
-        className="mt-7 max-w-4xl text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl"
+        className="mt-7 max-w-4xl text-4xl font-bold leading-[1.06] tracking-tight sm:text-6xl"
       >
-        Enterprise software,
-        <br />
-        <span className="text-gradient">owned end to end.</span>
+        I turn messy business problems into{" "}
+        <span className="text-gradient">production software.</span>
       </motion.h1>
 
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.12, ease }}
-        className="mt-6 max-w-xl text-lg leading-relaxed text-muted"
+        className="mt-6 max-w-2xl text-base leading-relaxed text-fg/90 sm:text-lg"
       >
-        {profile.hook}
+        {profile.heroSubtitle}
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.16, ease }}
+        className="mt-3 max-w-2xl text-sm leading-relaxed text-muted"
+      >
+        {profile.heroSupport}
       </motion.p>
 
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2, ease }}
+        transition={{ duration: 0.6, delay: 0.24, ease }}
         className="mt-9 flex flex-wrap items-center gap-3"
       >
         <a
@@ -76,15 +83,22 @@ export default function Hero() {
         </a>
         <a
           href={profile.links.resume}
+          download
           className="inline-flex items-center gap-2 rounded-xl border border-line-strong bg-white/5 px-5 py-3 text-sm font-medium text-fg transition-colors hover:border-accent-line"
         >
-          <FileText size={16} /> Resume
+          <FileText size={16} /> Download Resume
+        </a>
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 rounded-xl border border-line-strong bg-white/5 px-5 py-3 text-sm font-medium text-fg transition-colors hover:border-accent-line"
+        >
+          <MessageSquare size={16} /> Let&apos;s Talk
         </a>
         <div className="ml-1 flex items-center gap-1">
           {[
-            { href: profile.links.email, icon: Mail, label: "Email" },
-            { href: profile.links.github, icon: Github, label: "GitHub" },
             { href: profile.links.linkedin, icon: Linkedin, label: "LinkedIn" },
+            { href: profile.links.github, icon: Github, label: "GitHub" },
+            { href: profile.links.email, icon: Mail, label: "Email" },
           ].map(({ href, icon: Icon, label }) => (
             <a
               key={label}
@@ -104,16 +118,12 @@ export default function Hero() {
       <motion.dl
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3, ease }}
+        transition={{ duration: 0.6, delay: 0.32, ease }}
         className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4"
       >
         {profile.stats.map((s) => (
-          <motion.div
-            key={s.label}
-            whileHover={{ y: -4 }}
-            className="gcard p-5"
-          >
-            <dt className="font-mono text-4xl font-bold text-gradient">
+          <motion.div key={s.label} whileHover={{ y: -4 }} className="gcard p-5">
+            <dt className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
               {s.value}
             </dt>
             <dd className="mt-1 text-sm font-semibold text-fg">{s.label}</dd>

@@ -1,9 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { Lightbulb, X } from "lucide-react";
 import { useEffect } from "react";
 import type { Project } from "@/lib/content";
+import { confidentialityNote } from "@/lib/content";
+import FlowDiagram from "./FlowDiagram";
 
 function Column({ label, items }: { label: string; items: string[] }) {
   return (
@@ -48,13 +50,11 @@ export default function ProjectModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* backdrop */}
           <motion.div
             className="absolute inset-0 bg-black/70 backdrop-blur-md"
             onClick={onClose}
           />
 
-          {/* panel */}
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -90,18 +90,58 @@ export default function ProjectModal({
                 ))}
               </div>
 
-              <div className="mt-7 rounded-2xl border border-line bg-ink/40 p-5">
+              {/* Context + My role */}
+              <div className="mt-7 grid gap-5 sm:grid-cols-2">
+                <div>
+                  <h4 className="mono-label text-accent">Context</h4>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                    {project.context}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="mono-label text-accent">My Role</h4>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                    {project.role}
+                  </p>
+                </div>
+              </div>
+
+              {/* Problem */}
+              <div className="mt-6 rounded-2xl border border-line bg-ink/40 p-5">
                 <h4 className="mono-label text-accent">The Problem</h4>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
                   {project.problem}
                 </p>
               </div>
 
+              {/* Diagram */}
+              {project.flow && (
+                <div className="mt-6">
+                  <FlowDiagram steps={project.flow} />
+                </div>
+              )}
+
+              {/* Challenge / Built / Impact */}
               <div className="mt-7 grid gap-7 sm:grid-cols-3">
                 <Column label="Challenge" items={project.challenge} />
-                <Column label="What I Built" items={project.built} />
+                <Column label="Solution / Built" items={project.built} />
                 <Column label="Impact" items={project.impact} />
               </div>
+
+              {/* What I learned */}
+              <div className="mt-7 flex gap-3 rounded-2xl border border-accent-line bg-accent-soft p-5">
+                <Lightbulb size={18} className="mt-0.5 shrink-0 text-accent" />
+                <div>
+                  <h4 className="mono-label text-accent">What I Learned</h4>
+                  <p className="mt-2 text-sm leading-relaxed text-fg/90">
+                    {project.learned}
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs leading-relaxed text-faint">
+                {confidentialityNote}
+              </p>
             </div>
           </motion.div>
         </motion.div>

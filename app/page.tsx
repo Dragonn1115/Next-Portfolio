@@ -7,9 +7,11 @@ import Projects from "@/components/Projects";
 import Achievements from "@/components/Achievements";
 import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
+import About from "@/components/About";
+import BeyondWork from "@/components/BeyondWork";
+import OpenTo from "@/components/OpenTo";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { confidentialityNote } from "@/lib/content";
 
 export default function Home() {
   return (
@@ -31,20 +33,13 @@ export default function Home() {
         <Section
           id="projects"
           index="02"
-          title="Selected Projects"
-          subtitle="Seven engineering themes from owning a multi-client ERP platform. Tap any card for the full case study."
+          title="Featured Case Studies"
+          subtitle="Three projects that show the depth — tap any card for context, the technical challenge, an abstract flow diagram, and what I learned."
         >
           <Projects />
-          <p className="mt-8 text-center text-xs leading-relaxed text-faint">
-            {confidentialityNote}
-          </p>
         </Section>
 
-        <Section
-          id="achievements"
-          index="03"
-          title="Selected Achievements"
-        >
+        <Section id="achievements" index="03" title="Selected Achievements">
           <Achievements />
         </Section>
 
@@ -56,11 +51,34 @@ export default function Home() {
           id="skills"
           index="05"
           title="Technical Stack"
+          subtitle="The tools I use, and where I actually use them."
         >
           <Skills />
         </Section>
 
-        <Section id="contact" index="06" title="Contact">
+        <Section id="about" index="06" title="About Me">
+          <About />
+        </Section>
+
+        <Section
+          id="life"
+          index="07"
+          title="Beyond Work"
+          subtitle="The same things I value in engineering: consistency, problem-solving, patience, and controlled risk."
+        >
+          <BeyondWork />
+        </Section>
+
+        <Section
+          id="open"
+          index="08"
+          title="What I'm Open To"
+          subtitle="Not only for a job — also for building something."
+        >
+          <OpenTo />
+        </Section>
+
+        <Section id="contact" index="09" title="Contact">
           <Contact />
         </Section>
 

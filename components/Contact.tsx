@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/lib/content";
 
 export default function Contact() {
@@ -21,11 +21,13 @@ export default function Contact() {
       />
       <div className="relative">
         <h3 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-          Let&apos;s build something that <span className="text-gradient">ships</span>.
+          Let&apos;s build something <span className="text-gradient">useful</span>.
         </h3>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted">
-          Hiring for a product-driven engineering team? The fastest way to
-          reach me is email.
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+          I&apos;m open to technical lead / full-stack roles, practical software
+          collaborations, and conversations with builders working on real-world
+          workflow problems. Hiring, building internal tools, automating
+          operations, or exploring a software business? Reach out.
         </p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -33,7 +35,7 @@ export default function Contact() {
             href={profile.links.email}
             className="btn-glow inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold"
           >
-            <Mail size={16} /> {email}
+            <Mail size={16} /> Email me
           </a>
           <a
             href={profile.links.linkedin}
@@ -51,7 +53,18 @@ export default function Contact() {
           >
             <Github size={16} /> GitHub <ArrowUpRight size={14} />
           </a>
+          <a
+            href={profile.links.resume}
+            download
+            className="inline-flex items-center gap-2 rounded-xl border border-line-strong bg-white/5 px-5 py-3 text-sm font-medium text-fg transition-colors hover:border-accent-line"
+          >
+            <FileText size={16} /> Download Resume
+          </a>
         </div>
+
+        <p className="mt-7 font-mono text-xs text-faint">
+          {email} · Based in Edmonton, Alberta · Open to remote &amp; Canada-based roles
+        </p>
       </div>
     </motion.div>
   );

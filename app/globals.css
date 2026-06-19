@@ -138,16 +138,16 @@ body {
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.28;
+  opacity: 0.2;
   transition: opacity 0.35s ease;
   pointer-events: none;
 }
 .gcard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 24px 60px -20px rgba(139, 92, 246, 0.45);
+  box-shadow: 0 22px 50px -24px rgba(139, 92, 246, 0.38);
 }
 .gcard:hover::before {
-  opacity: 0.9;
+  opacity: 0.65;
 }
 
 /* ------------------------------------------------------------------ */

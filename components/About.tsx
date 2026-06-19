@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { about } from "@/lib/content";
+import { about, aboutIdentity } from "@/lib/content";
 
 export default function About() {
   return (
@@ -23,32 +23,25 @@ export default function About() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="gcard h-fit p-6"
-      >
-        <span className="mono-label text-accent">How I work</span>
-        <ul className="mt-4 space-y-3">
-          {[
-            "I build for real users, not demos.",
-            "I prefer maintainable systems over clever hacks.",
-            "I turn repeated problems into reusable behavior.",
-            "I own production, not just code.",
-            "I communicate clearly with business stakeholders.",
-          ].map((line) => (
-            <li
-              key={line}
-              className="flex gap-2.5 text-sm leading-relaxed text-muted"
-            >
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-violet to-cyan" />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
+      <div className="grid h-fit grid-cols-2 gap-4">
+        {aboutIdentity.map((card, i) => (
+          <motion.div
+            key={card.title}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.45, delay: 0.06 * i }}
+            className="gcard p-5"
+          >
+            <h3 className="text-sm font-semibold tracking-tight text-fg">
+              {card.title}
+            </h3>
+            <p className="mt-2 text-xs leading-relaxed text-muted">
+              {card.body}
+            </p>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export const profile = {
   heroSubtitle:
     "Technical Lead / Full-Stack Engineer working across architecture, product, development, deployment, and production support.",
   heroSupport:
-    "I specialize in ERP platforms, internal tools, real-time dashboards, workflow automation, and systems that support real operations.",
+    "I build ERP platforms, internal tools, reporting systems, real-time dashboards, and workflow automation for real business operations.",
 
   links: {
     email: "mailto:zhaojinglong12@gmail.com",
@@ -31,7 +31,7 @@ export const profile = {
 
 // "About me" — short, human
 export const about = [
-  "I'm a Full-Stack Engineer and Technical Lead based in Edmonton. I like building software that gets used in real operations — ERP systems, internal tools, dashboards, workflow automation, integrations, and production platforms.",
+  "I'm a Technical Lead and Full-Stack Engineer based in Edmonton. I like building software that gets used in real operations — ERP systems, internal tools, dashboards, workflow automation, integrations, and production platforms.",
   "My work usually starts with unclear requirements and messy business processes. I enjoy turning that into something structured: a system design, a build plan, a working product, and eventually a stable release.",
   "I work best where engineering, product, infrastructure, and business operations overlap. I like owning the full path from idea to production.",
   "Outside work, I climb, run, train, and keep looking for hard things to get better at.",
@@ -415,30 +415,48 @@ export const experience = [
 
 export const skillGroups = [
   {
+    title: "Languages",
+    items: ["Python", "JavaScript", "TypeScript", "SQL"],
+    usedFor: "Backend logic, frontend workflows, ERP customization, reporting, and data processing.",
+  },
+  {
     title: "Frontend",
-    items: ["React", "Vue", "JavaScript / TypeScript", "Frappe UI"],
-    usedFor: "Dashboards, map editors, report views, and workflow-heavy internal tools.",
+    items: ["React", "Vue", "Frappe UI", "Data-heavy tables", "Map / editor UI", "PWA"],
+    usedFor: "Dashboards, workflow-heavy internal tools, report views, map editors, and operational interfaces.",
   },
   {
     title: "Backend",
-    items: ["Python", "Frappe / ERPNext", "Django", "Express.js", "REST APIs"],
-    usedFor: "ERP customization, workflow automation, integrations, and background logic.",
+    items: ["Frappe / ERPNext", "Django", "Express.js", "REST APIs", "Background jobs", "Workflow triggers"],
+    usedFor: "ERP customization, business workflow automation, API integration, and backend process logic.",
   },
   {
     title: "Data",
-    items: ["MariaDB", "MySQL", "Redis", "Report queries", "Data migration"],
-    usedFor: "ERP data modeling, high-volume reports, and cache / realtime workflows.",
+    items: ["MariaDB", "MySQL", "Redis", "Report queries", "Data migration", "Batch processing"],
+    usedFor: "ERP data modeling, reporting, caching, realtime workflows, and high-volume data handling.",
   },
   {
-    title: "DevOps",
+    title: "DevOps & Infrastructure",
     items: ["Linux", "Nginx", "Supervisor", "Docker", "CI/CD", "Oracle Cloud", "fail2ban"],
-    usedFor: "Multi-environment deployment, server setup, release validation, and reliability.",
+    usedFor: "Server setup, deployment, release validation, production support, and security hardening.",
   },
   {
     title: "Integrations",
-    items: ["QuickBooks API", "OAuth2", "CompanyCam", "External sync"],
-    usedFor: "Finance data sync, external API mapping, and integration workflows.",
+    items: ["QuickBooks API", "OAuth2", "CompanyCam", "External sync", "API mapping"],
+    usedFor: "Finance integration, external data import, secure sync, and operational system connections.",
   },
+  {
+    title: "Quality & Reliability",
+    items: ["Cypress", "Release validation", "Production debugging", "Code review", "Permission testing"],
+    usedFor: "Testing, release confidence, regression prevention, and production troubleshooting.",
+  },
+];
+
+// Identity cards for the About section (right column)
+export const aboutIdentity = [
+  { title: "Builder", body: "I ship real software that gets used in production." },
+  { title: "Technical owner", body: "Architecture, delivery, releases, and production support." },
+  { title: "Active outside work", body: "Climbing, running, and long-term training goals." },
+  { title: "Open to collaboration", body: "Jobs, builder conversations, and practical software." },
 ];
 
 export const openTo = [

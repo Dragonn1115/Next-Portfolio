@@ -25,7 +25,7 @@ export default function Home() {
           id="work"
           index="01"
           title="What I Do"
-          subtitle="Enterprise web systems that connect real business operations with reliable software."
+          subtitle="I build the kind of software that sits between business operations and engineering: ERP modules, internal tools, reporting systems, real-time dashboards, workflow automation, and the deployment work needed to keep them running."
         >
           <WhatIDo />
         </Section>
@@ -39,30 +39,21 @@ export default function Home() {
           <Projects />
         </Section>
 
-        <Section id="achievements" index="03" title="Selected Achievements">
-          <Achievements />
-        </Section>
-
-        <Section id="experience" index="04" title="Experience">
+        <Section id="experience" index="03" title="Experience">
           <Experience />
         </Section>
 
-        <Section
-          id="skills"
-          index="05"
-          title="Technical Stack"
-          subtitle="The tools I use, and where I actually use them."
-        >
-          <Skills />
+        <Section id="achievements" index="04" title="Selected Achievements">
+          <Achievements />
         </Section>
 
-        <Section id="about" index="06" title="About Me">
+        <Section id="about" index="05" title="About Me">
           <About />
         </Section>
 
         <Section
           id="life"
-          index="07"
+          index="06"
           title="Beyond Work"
           subtitle="The same things I value in engineering: consistency, problem-solving, patience, and controlled risk."
         >
@@ -71,11 +62,20 @@ export default function Home() {
 
         <Section
           id="open"
-          index="08"
+          index="07"
           title="What I'm Open To"
           subtitle="Not only for a job — also for building something."
         >
           <OpenTo />
+        </Section>
+
+        <Section
+          id="skills"
+          index="08"
+          title="Technical Stack"
+          subtitle="The tools I use, and where I actually use them."
+        >
+          <Skills />
         </Section>
 
         <Section id="contact" index="09" title="Contact">

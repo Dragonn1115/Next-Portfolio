@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const items = [
+  { id: "work", label: "Work" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "about", label: "About" },
-  { id: "life", label: "Life" },
   { id: "contact", label: "Contact" },
 ];
 

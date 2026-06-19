@@ -205,6 +205,22 @@ body {
   transform: translateY(-1px);
 }
 
+/* ------------------------------------------------------------------ */
+/* Modal — gradient-border frame that stays put while content scrolls   */
+/* ------------------------------------------------------------------ */
+.modal-shell {
+  position: relative;
+  padding: 1px; /* thickness of the gradient border */
+  background: linear-gradient(135deg, var(--color-violet), var(--color-cyan) 50%, var(--color-magenta));
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+}
+.modal-inner {
+  background: #0b0a16;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* floating accent orbs (hero) */
 .orb {
   position: absolute;

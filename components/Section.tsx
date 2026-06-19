@@ -15,7 +15,7 @@ export default function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="mt-28 scroll-mt-24">
+    <section id={id} className="mt-32 scroll-mt-24">
       <Reveal>
         <div className="flex items-center gap-3">
           <span className="font-mono text-sm text-gradient">{index}</span>

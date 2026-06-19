@@ -63,17 +63,18 @@ export default function ProjectModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.98 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="gcard relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-b-none rounded-t-3xl sm:rounded-3xl"
+            className="modal-shell z-10 w-full max-w-3xl rounded-t-3xl sm:rounded-3xl"
           >
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-4 top-4 z-20 rounded-full border border-line bg-ink/60 p-2 text-muted backdrop-blur transition-colors hover:border-accent-line hover:text-fg"
+              className="absolute right-4 top-4 z-20 rounded-full border border-line bg-ink/70 p-2 text-muted backdrop-blur transition-colors hover:border-accent-line hover:text-fg"
             >
               <X size={18} />
             </button>
 
-            <div className="p-7 sm:p-10">
+            <div className="modal-inner max-h-[88vh] rounded-t-[23px] sm:rounded-[23px]">
+              <div className="p-7 sm:p-10">
               <span className="font-mono text-sm text-gradient">
                 {project.num} / 07
               </span>
@@ -142,6 +143,7 @@ export default function ProjectModal({
               <p className="mt-6 text-xs leading-relaxed text-faint">
                 {confidentialityNote}
               </p>
+              </div>
             </div>
           </motion.div>
         </motion.div>

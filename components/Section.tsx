@@ -1,21 +1,37 @@
+import type { ReactNode } from "react";
+import Reveal from "./Reveal";
+
 export default function Section({
   id,
+  index,
   title,
   subtitle,
   children,
 }: {
   id?: string;
+  index: string;
   title: string;
   subtitle?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
-    <section id={id} className="mt-16">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-        {subtitle ? <p className="text-zinc-300 max-w-3xl">{subtitle}</p> : null}
-      </div>
-      <div className="mt-6">{children}</div>
+    <section id={id} className="mt-28 scroll-mt-24">
+      <Reveal>
+        <div className="flex items-baseline gap-4 border-b border-line pb-5">
+          <span className="mono-label text-accent">{index}</span>
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              {title}
+            </h2>
+            {subtitle ? (
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                {subtitle}
+              </p>
+            ) : null}
+          </div>
+        </div>
+      </Reveal>
+      <div className="mt-10">{children}</div>
     </section>
   );
 }

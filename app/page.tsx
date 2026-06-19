@@ -1,70 +1,76 @@
+import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
-import ProjectCard from "@/components/ProjectCard";
-import Timeline from "@/components/Timeline";
+import WhatIDo from "@/components/WhatIDo";
+import Projects from "@/components/Projects";
+import Achievements from "@/components/Achievements";
+import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { projects, profile } from "@/lib/content";
+import { confidentialityNote } from "@/lib/content";
 
 export default function Home() {
   return (
-    <main className="noise bg-hero">
-      <div className="mx-auto max-w-6xl px-6 py-16">
+    <>
+      <Nav />
+      <main className="mx-auto max-w-6xl px-6">
         <Hero />
 
         <Section
-          title="Selected Projects"
-          subtitle="Proof over claims. Decisions, trade-offs, and outcomes. Add screenshots + links to make this bulletproof."
+          id="work"
+          index="01"
+          title="What I Do"
+          subtitle="I build enterprise web systems that connect real business operations with reliable software."
+        >
+          <WhatIDo />
+        </Section>
+
+        <Section
           id="projects"
+          index="02"
+          title="Selected Projects"
+          subtitle="Seven engineering themes from owning a multi-client ERP platform — expand any card for the problem, technical challenge, and impact."
         >
-          <div className="grid gap-6 md:grid-cols-2">
-            {projects.map((p) => (
-              <ProjectCard key={p.title} {...p} />
-            ))}
-          </div>
+          <Projects />
+          <p className="mt-8 rounded-xl border border-line bg-ink-2 p-4 text-xs leading-relaxed text-faint">
+            {confidentialityNote}
+          </p>
         </Section>
 
         <Section
+          id="achievements"
+          index="03"
+          title="Selected Achievements"
+          subtitle="Ownership and outcomes across architecture, delivery, and production."
+        >
+          <Achievements />
+        </Section>
+
+        <Section
+          id="experience"
+          index="04"
           title="Experience"
-          subtitle="Ownership, delivery, and real-world system constraints."
+          subtitle="From full-stack intern to hands-on technical lead."
         >
-          <Timeline />
+          <Experience />
         </Section>
 
         <Section
-          title="Skills"
-          subtitle="Fewer words. More signal."
+          id="skills"
+          index="05"
+          title="Technical Stack"
+          subtitle="The tools I use to ship and maintain production systems."
         >
           <Skills />
         </Section>
 
-        <Section
-          title="Contact"
-          subtitle="If you’re hiring for product-driven teams, I’m happy to chat."
-        >
-          <div className="rounded-2xl glass p-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-zinc-200">
-              <div className="text-sm text-zinc-400">Email</div>
-              <a className="hover:underline" href={profile.links.email}>
-                {profile.links.email.replace("mailto:", "")}
-              </a>
-            </div>
-            <div className="flex gap-3">
-              <a className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 hover:bg-white/10" href={profile.links.linkedin} target="_blank" rel="noreferrer">
-                LinkedIn
-              </a>
-              <a className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 hover:bg-white/10" href={profile.links.github} target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-              <a className="rounded-xl bg-white px-4 py-2 font-semibold text-black hover:opacity-90" href={profile.links.resume}>
-                Resume
-              </a>
-            </div>
-          </div>
+        <Section id="contact" index="06" title="Contact">
+          <Contact />
         </Section>
 
         <Footer />
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

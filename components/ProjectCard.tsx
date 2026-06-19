@@ -1,66 +1,102 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import type { Project } from "@/lib/content";
 
-export default function ProjectCard({
-  title,
-  subtitle,
-  impact,
-  stack,
-  tags,
+function DetailColumn({
+  label,
+  items,
 }: {
-  title: string;
-  subtitle: string;
-  impact: string[];
-  stack: string[];
-  tags: string[];
+  label: string;
+  items: string[];
 }) {
   return (
-    <motion.article
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 260, damping: 18 }}
-      className="group rounded-2xl glass p-6 hover:border-white/20"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="mt-1 text-sm text-zinc-300">{subtitle}</p>
-        </div>
-        <div className="flex flex-wrap gap-2 justify-end">
-          {tags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-zinc-300"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <ul className="mt-4 space-y-2 text-sm text-zinc-200">
-        {impact.map((b) => (
-          <li key={b} className="flex gap-2">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/60" />
-            <span className="leading-relaxed">{b}</span>
+    <div>
+      <h4 className="mono-label text-accent">{label}</h4>
+      <ul className="mt-3 space-y-2">
+        {items.map((it) => (
+          <li key={it} className="flex gap-2.5 text-sm leading-relaxed text-muted">
+            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent/70" />
+            <span>{it}</span>
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        {stack.map((s) => (
-          <span
-            key={s}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-200"
+export default function ProjectCard({ project }: { project: Project }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <motion.article
+      layout
+      className="card card-hover overflow-hidden"
+    >
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full flex-col gap-4 p-6 text-left sm:p-7"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-baseline gap-3">
+            <span className="font-mono text-sm text-accent">{project.num}</span>
+            <div>
+              <h3 className="text-lg font-semibold tracking-tight text-fg sm:text-xl">
+                {project.title}
+              </h3>
+              <p className="mt-1 text-sm text-muted">{project.subtitle}</p>
+            </div>
+          </div>
+          <motion.span
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.25 }}
+            className="mt-1 shrink-0 text-faint"
           >
-            {s}
-          </span>
-        ))}
-      </div>
+            <ChevronDown size={18} />
+          </motion.span>
+        </div>
 
-      <div className="mt-5 text-xs text-zinc-400">
-        Tip: Add screenshots + a short write-up link for maximum credibility.
-      </div>
+        <p className="text-sm leading-relaxed text-muted">{project.blurb}</p>
+
+        <div className="flex flex-wrap gap-1.5">
+          {project.stack.map((s) => (
+            <span key={s} className="badge">
+              {s}
+            </span>
+          ))}
+        </div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="detail"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-line px-6 pb-7 pt-6 sm:px-7">
+              <div>
+                <h4 className="mono-label text-accent">The Problem</h4>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {project.problem}
+                </p>
+              </div>
+
+              <div className="mt-7 grid gap-7 sm:grid-cols-3">
+                <DetailColumn label="Technical Challenge" items={project.challenge} />
+                <DetailColumn label="What I Built" items={project.built} />
+                <DetailColumn label="Impact" items={project.impact} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.article>
   );
 }

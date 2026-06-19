@@ -1,26 +1,23 @@
-import { skills } from "@/lib/content";
-
-function Group({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div className="rounded-2xl glass p-6">
-      <div className="text-sm text-zinc-400">{title}</div>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {items.map((s) => (
-          <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm">
-            {s}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { skillGroups } from "@/lib/content";
+import Reveal from "./Reveal";
 
 export default function Skills() {
   return (
-    <div className="grid gap-4 md:grid-cols-3">
-      <Group title="Core" items={skills.core} />
-      <Group title="Systems" items={skills.systems} />
-      <Group title="Patterns" items={skills.patterns} />
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {skillGroups.map((group, i) => (
+        <Reveal key={group.title} delay={(i % 4) * 0.05}>
+          <div className="card h-full p-5">
+            <h3 className="mono-label text-faint">{group.title}</h3>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {group.items.map((s) => (
+                <span key={s} className="badge">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      ))}
     </div>
   );
 }

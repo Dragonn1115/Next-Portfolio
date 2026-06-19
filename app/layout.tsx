@@ -1,16 +1,52 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-jb",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Jinglong Zhao | Full-Stack Engineer",
+  title: "Jinglong Zhao — Technical Lead & Full-Stack Engineer",
   description:
-    "Product-oriented Full-Stack Engineer. Real-time systems, performance, integrations, deployments. Edmonton / Remote Canada.",
+    "Technical Lead and Full-Stack Software Engineer in Edmonton, Alberta. Building production ERP platforms, real-time operations dashboards, workflow automation, and reliable internal tools on Frappe/ERPNext.",
+  keywords: [
+    "Jinglong Zhao",
+    "Technical Lead",
+    "Full-Stack Engineer",
+    "Frappe",
+    "ERPNext",
+    "Edmonton",
+  ],
+  authors: [{ name: "Jinglong Zhao" }],
+  openGraph: {
+    title: "Jinglong Zhao — Technical Lead & Full-Stack Engineer",
+    description:
+      "Building production ERP platforms, real-time dashboards, and reliable internal tools.",
+    type: "website",
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-black text-zinc-100 antialiased">{children}</body>
+    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+      <body className="min-h-screen antialiased">
+        <div className="bg-grid" aria-hidden />
+        <div className="noise" aria-hidden />
+        {children}
+      </body>
     </html>
   );
 }

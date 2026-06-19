@@ -1,74 +1,98 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, FileText } from "lucide-react";
+import { ArrowDown, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/lib/content";
 
-function Pill({ text }: { text: string }) {
-  return (
-    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-200">
-      {text}
-    </span>
-  );
-}
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="relative overflow-hidden rounded-3xl glass glow shine p-10"
-    >
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-wrap gap-2">
-          {profile.highlights.map((h) => (
-            <Pill key={h.label} text={`${h.label}: ${h.value}`} />
+    <section id="top" className="relative pt-36 pb-10 sm:pt-44">
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease }}
+        className="mono-label flex items-center gap-3"
+      >
+        <span className="inline-block h-px w-8 bg-accent-line" />
+        {profile.role}
+      </motion.p>
+
+      <motion.h1
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.05, ease }}
+        className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl"
+      >
+        I turn ambiguous business requirements into{" "}
+        <span className="text-gradient">reliable enterprise software</span>.
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.12, ease }}
+        className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
+      >
+        {profile.intro}
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2, ease }}
+        className="mt-9 flex flex-wrap items-center gap-3"
+      >
+        <a
+          href="#projects"
+          className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-ink transition-opacity hover:opacity-90"
+        >
+          View Projects <ArrowDown size={16} />
+        </a>
+        <a
+          href={profile.links.resume}
+          className="inline-flex items-center gap-2 rounded-xl border border-line-strong bg-white/5 px-5 py-3 text-sm font-medium text-fg transition-colors hover:border-accent-line"
+        >
+          <FileText size={16} /> Resume
+        </a>
+        <div className="ml-1 flex items-center gap-1">
+          {[
+            { href: profile.links.email, icon: Mail, label: "Email" },
+            { href: profile.links.github, icon: Github, label: "GitHub" },
+            { href: profile.links.linkedin, icon: Linkedin, label: "LinkedIn" },
+          ].map(({ href, icon: Icon, label }) => (
+            <a
+              key={label}
+              href={href}
+              aria-label={label}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+              className="rounded-lg p-2.5 text-muted transition-colors hover:bg-white/5 hover:text-fg"
+            >
+              <Icon size={18} />
+            </a>
           ))}
         </div>
+      </motion.div>
 
-        <div>
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">
-            {profile.name}
-            <span className="block text-zinc-300">{profile.title}</span>
-          </h1>
-          <p className="mt-3 text-sm text-zinc-400">{profile.location}</p>
-        </div>
-
-        <p className="max-w-3xl text-zinc-200/90 leading-relaxed">
-          {profile.summary}
-        </p>
-
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:opacity-90"
-          >
-            View Projects <ArrowRight size={16} />
-          </a>
-          <a
-            href={profile.links.resume}
-            className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-          >
-            Resume <FileText size={16} />
-          </a>
-        </div>
-
-        <div className="flex gap-4 text-zinc-300">
-          <a className="hover:text-white" href={profile.links.email} aria-label="Email">
-            <Mail size={18} />
-          </a>
-          <a className="hover:text-white" href={profile.links.github} aria-label="GitHub" target="_blank" rel="noreferrer">
-            <Github size={18} />
-          </a>
-          <a className="hover:text-white" href={profile.links.linkedin} aria-label="LinkedIn" target="_blank" rel="noreferrer">
-            <Linkedin size={18} />
-          </a>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
-      <div className="pointer-events-none absolute -left-28 -bottom-28 h-80 w-80 rounded-full bg-emerald-500/15 blur-3xl" />
-    </motion.section>
+      {/* Stat strip */}
+      <motion.dl
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3, ease }}
+        className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4"
+      >
+        {profile.stats.map((s) => (
+          <div key={s.label} className="bg-ink-2 p-5">
+            <dt className="font-mono text-3xl font-semibold text-accent">
+              {s.value}
+            </dt>
+            <dd className="mt-1 text-sm font-medium text-fg">{s.label}</dd>
+            <dd className="mt-0.5 text-xs text-faint">{s.note}</dd>
+          </div>
+        ))}
+      </motion.dl>
+    </section>
   );
 }

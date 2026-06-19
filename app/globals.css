@@ -1,32 +1,38 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------------------
-   Design tokens — "web3 console" theme
-   Deep violet-black surfaces, neon violet/cyan/magenta gradients, glow + motion.
+   Design system — "Signal / Operator Console"
+   Deep blue-black surfaces · electric cyan as the single signal color ·
+   indigo/violet secondary · green live-status dot · hairline grids + ticks.
+   Token NAMES are kept stable so component classes inherit the new look.
 ---------------------------------------------------------------------------- */
 @theme {
-  --color-ink: #06060d;
-  --color-ink-2: #0a0a15;
-  --color-surface: #0e0d1c;
-  --color-surface-2: #14122a;
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-ink: #04060e;
+  --color-ink-2: #070b16;
+  --color-surface: #0a1020;
+  --color-surface-2: #0e1528;
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
 
-  --color-fg: #f2f1f9;
-  --color-muted: #a09cc0;
-  --color-faint: #6a6790;
+  --color-fg: #eef2fb;
+  --color-muted: #9aa5c4;
+  --color-faint: #5f6a8c;
 
-  --color-violet: #8b5cf6;
-  --color-cyan: #22d3ee;
-  --color-magenta: #ec4899;
-  --color-accent: #a78bfa;
-  --color-accent-soft: rgba(139, 92, 246, 0.16);
-  --color-accent-line: rgba(139, 92, 246, 0.45);
+  /* signal color system */
+  --color-cyan: #34d8f3;     /* primary signal */
+  --color-violet: #7c84ff;   /* secondary */
+  --color-magenta: #9d7bff;  /* tertiary (periwinkle — keeps gradients cohesive) */
+  --color-live: #36e0a4;     /* "online" status only */
+
+  /* accent === cyan, so every text-accent / badge / icon reads as one signal */
+  --color-accent: #46dbf5;
+  --color-accent-soft: rgba(52, 216, 243, 0.12);
+  --color-accent-line: rgba(52, 216, 243, 0.42);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-jb), ui-monospace, "SF Mono", Menlo, monospace;
 
-  --radius-card: 18px;
+  --radius-card: 16px;
 }
 
 :root {
@@ -52,102 +58,113 @@ body {
 }
 
 ::selection {
-  background: var(--color-violet);
-  color: #fff;
+  background: var(--color-cyan);
+  color: #04060e;
 }
 
 /* ------------------------------------------------------------------ */
-/* Animated aurora background                                          */
+/* Background: controlled console field (replaces the twin-blob aurora) */
+/* A single deep cyan/violet glow up top + a low violet pool below.     */
 /* ------------------------------------------------------------------ */
 .aurora {
   position: fixed;
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  background: var(--color-ink);
+  background:
+    radial-gradient(60% 50% at 75% -5%, rgba(52, 216, 243, 0.16), transparent 60%),
+    radial-gradient(55% 45% at 12% 8%, rgba(124, 132, 255, 0.16), transparent 60%),
+    radial-gradient(80% 60% at 50% 110%, rgba(124, 132, 255, 0.10), transparent 70%),
+    var(--color-ink);
   overflow: hidden;
 }
-.aurora::before,
-.aurora::after {
+/* one slow-drifting signal orb for life, far more restrained than before */
+.aurora::before {
   content: "";
   position: absolute;
-  width: 60vw;
-  height: 60vw;
+  top: -18%;
+  right: -8%;
+  width: 46vw;
+  height: 46vw;
   border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.5;
+  background: radial-gradient(circle, rgba(52, 216, 243, 0.22), transparent 65%);
+  filter: blur(120px);
   will-change: transform;
+  animation: drift 24s ease-in-out infinite alternate;
 }
-.aurora::before {
-  top: -20%;
-  left: -10%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.55), transparent 65%);
-  animation: drift1 18s ease-in-out infinite alternate;
-}
-.aurora::after {
-  top: 0%;
-  right: -15%;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.4), transparent 65%);
-  animation: drift2 22s ease-in-out infinite alternate;
-}
-@keyframes drift1 {
-  to { transform: translate3d(12vw, 16vh, 0) scale(1.15); }
-}
-@keyframes drift2 {
-  to { transform: translate3d(-14vw, 10vh, 0) scale(1.2); }
+@keyframes drift {
+  to { transform: translate3d(-10vw, 12vh, 0) scale(1.12); }
 }
 
-/* faint grid overlay + fade */
+/* fine grid + vignette + faint scanlines = "console screen" */
 .grid-overlay {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 54px 54px;
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 80%);
+    linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 95% 70% at 50% 0%, #000 35%, transparent 85%);
 }
 
 /* ------------------------------------------------------------------ */
-/* Surfaces & gradient borders                                         */
+/* Surfaces                                                            */
 /* ------------------------------------------------------------------ */
 .glass {
-  background: rgba(12, 11, 26, 0.65);
+  background: rgba(10, 16, 32, 0.72);
   border: 1px solid var(--color-line);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
 }
 
-/* gradient-bordered card: glowing edge that intensifies on hover */
+/* Console card: hairline frame, subtle inner surface. On hover it lifts,
+   a cyan signal line sweeps across the top, and a soft corner glow appears.
+   No full rainbow border — glow is reserved for hierarchy. */
 .gcard {
   position: relative;
   border-radius: var(--radius-card);
-  background: linear-gradient(180deg, rgba(20, 18, 42, 0.7), rgba(10, 10, 21, 0.7));
+  border: 1px solid var(--color-line);
+  background:
+    linear-gradient(180deg, rgba(14, 21, 40, 0.66), rgba(8, 12, 22, 0.66));
   backdrop-filter: blur(8px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.gcard::before {
+/* top signal line — hidden until hover */
+.gcard::after {
   content: "";
   position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--color-violet), var(--color-cyan) 50%, var(--color-magenta));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.2;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
+  opacity: 0;
   transition: opacity 0.35s ease;
   pointer-events: none;
 }
 .gcard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 22px 50px -24px rgba(139, 92, 246, 0.38);
+  border-color: var(--color-accent-line);
+  box-shadow:
+    0 24px 50px -28px rgba(52, 216, 243, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
-.gcard:hover::before {
-  opacity: 0.65;
+.gcard:hover::after {
+  opacity: 0.9;
+}
+
+/* corner registration ticks — pure console detail, opt-in via .ticked */
+.ticked::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
+  border-top: 1px solid var(--color-accent-line);
+  border-right: 1px solid var(--color-accent-line);
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* ------------------------------------------------------------------ */
@@ -156,21 +173,21 @@ body {
 .mono-label {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-faint);
 }
 
 .text-gradient {
-  background: linear-gradient(100deg, var(--color-violet), var(--color-cyan) 45%, var(--color-magenta) 80%, var(--color-violet));
-  background-size: 250% auto;
+  background: linear-gradient(100deg, var(--color-cyan), var(--color-violet) 55%, var(--color-magenta));
+  background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer 6s linear infinite;
+  animation: shimmer 7s linear infinite;
 }
 @keyframes shimmer {
-  to { background-position: 250% center; }
+  to { background-position: 220% center; }
 }
 
 .badge {
@@ -179,12 +196,12 @@ body {
   border: 1px solid var(--color-line);
   background: rgba(255, 255, 255, 0.03);
   color: var(--color-muted);
-  border-radius: 999px;
-  padding: 0.22rem 0.7rem;
+  border-radius: 7px;
+  padding: 0.22rem 0.6rem;
   font-size: 0.72rem;
   font-family: var(--font-mono);
-  letter-spacing: 0.02em;
-  transition: border-color 0.25s, color 0.25s;
+  letter-spacing: 0.01em;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
 }
 .badge-accent {
   border-color: var(--color-accent-line);
@@ -192,33 +209,73 @@ body {
   color: var(--color-accent);
 }
 
-/* glowing primary button */
+/* live status dot */
+.live-dot {
+  position: relative;
+  display: inline-flex;
+  height: 0.5rem;
+  width: 0.5rem;
+}
+.live-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-live);
+  animation: ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.live-dot::after {
+  content: "";
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background: var(--color-live);
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* primary button — cyan→violet, cyan glow */
 .btn-glow {
   position: relative;
-  background: linear-gradient(120deg, var(--color-violet), var(--color-magenta));
-  color: #fff;
-  box-shadow: 0 8px 30px -8px rgba(139, 92, 246, 0.7);
+  background: linear-gradient(120deg, var(--color-cyan), var(--color-violet));
+  color: #04060e;
+  font-weight: 600;
+  box-shadow: 0 8px 30px -8px rgba(52, 216, 243, 0.6);
   transition: box-shadow 0.3s, transform 0.2s;
 }
 .btn-glow:hover {
-  box-shadow: 0 12px 40px -6px rgba(236, 72, 153, 0.7);
+  box-shadow: 0 14px 40px -6px rgba(124, 132, 255, 0.65);
   transform: translateY(-1px);
 }
 
-/* ------------------------------------------------------------------ */
-/* Modal — gradient-border frame that stays put while content scrolls   */
-/* ------------------------------------------------------------------ */
-.modal-shell {
-  position: relative;
-  padding: 1px; /* thickness of the gradient border */
-  background: linear-gradient(135deg, var(--color-violet), var(--color-cyan) 50%, var(--color-magenta));
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+/* scrolled nav bottom hairline */
+.hairline-glow {
+  box-shadow: 0 1px 0 0 var(--color-line), 0 14px 40px -32px rgba(52, 216, 243, 0.7);
 }
-.modal-inner {
-  background: #0b0a16;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
+
+/* ------------------------------------------------------------------ */
+/* Orbital avatar (hero command-center card)                           */
+/* ------------------------------------------------------------------ */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-line-strong);
+}
+.orbit-spin {
+  position: absolute;
+  inset: 0;
+  animation: spin 18s linear infinite;
+}
+.orbit-spin-rev {
+  position: absolute;
+  inset: 0;
+  animation: spin 26s linear infinite reverse;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* floating accent orbs (hero) */
@@ -226,15 +283,31 @@ body {
   position: absolute;
   border-radius: 50%;
   filter: blur(2px);
-  opacity: 0.7;
+  opacity: 0.8;
   will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Modal — gradient-border frame that stays put while content scrolls   */
+/* ------------------------------------------------------------------ */
+.modal-shell {
+  position: relative;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-violet) 60%, var(--color-magenta));
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+}
+.modal-inner {
+  background: #060912;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* marquee */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 32s linear infinite;
+  animation: marquee 36s linear infinite;
 }
 @keyframes marquee {
   to { transform: translateX(-50%); }
@@ -245,9 +318,11 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .aurora::before,
-  .aurora::after,
   .text-gradient,
-  .marquee-track {
+  .marquee-track,
+  .orbit-spin,
+  .orbit-spin-rev,
+  .live-dot::before {
     animation: none !important;
   }
 }

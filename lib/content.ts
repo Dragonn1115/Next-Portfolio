@@ -13,6 +13,15 @@ export const profile = {
     "Technical Lead / Full-Stack Engineer working across architecture, product, development, deployment, and production support.",
   heroSupport:
     "I build ERP platforms, internal tools, reporting systems, real-time dashboards, and workflow automation for real business operations.",
+  heroPersonal:
+    "Outside work, I climb, run, and keep looking for hard things to get better at.",
+
+  // Right-column "command center" identity card
+  currentFocus: "Owning a multi-client ERP platform end to end.",
+  status: [
+    "Open to engineering roles",
+    "Open to builder conversations",
+  ],
 
   links: {
     email: "mailto:zhaojinglong12@gmail.com",
@@ -28,6 +37,38 @@ export const profile = {
     { value: "Multi-client", label: "ERP platform", note: "workflows · reporting · DevOps" },
   ],
 };
+
+// Identity tiles directly under the hero — quick "worlds" to jump into.
+export const identityCards = [
+  {
+    id: "work",
+    label: "Work",
+    body: "Production systems, ERP platforms, internal tools, and technical leadership.",
+    href: "#work",
+    coord: "01",
+  },
+  {
+    id: "projects",
+    label: "Projects",
+    body: "Case studies from reporting systems, real-time operations, deployment, and automation.",
+    href: "#projects",
+    coord: "02",
+  },
+  {
+    id: "life",
+    label: "Life",
+    body: "Climbing, running, building, and learning outside work.",
+    href: "#life",
+    coord: "03",
+  },
+  {
+    id: "now",
+    label: "Now",
+    body: "Open to technical lead roles, full-stack opportunities, and builder conversations.",
+    href: "#open",
+    coord: "04",
+  },
+];
 
 // "About me" — short, human
 export const about = [

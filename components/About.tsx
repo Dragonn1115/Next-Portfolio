@@ -1,7 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { MapPin, Globe } from "lucide-react";
 import { about, aboutIdentity } from "@/lib/content";
+
+const chips = [
+  { icon: MapPin, label: "Based in Edmonton, Alberta" },
+  { icon: Globe, label: "Open to remote / Canada roles" },
+];
 
 export default function About() {
   return (
@@ -21,6 +27,23 @@ export default function About() {
             {para}
           </motion.p>
         ))}
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap gap-2.5 pt-1"
+        >
+          {chips.map(({ icon: Icon, label }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1.5 rounded-full border border-accent-line bg-accent-soft px-3 py-1.5 text-xs font-medium text-accent"
+            >
+              <Icon size={13} /> {label}
+            </span>
+          ))}
+        </motion.div>
       </div>
 
       <div className="grid h-fit grid-cols-2 gap-4">
